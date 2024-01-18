@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="144.0" prefWidth="331.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.Controller.NewMovieController">
+   <children>
+      <TextField fx:id="txtFMovieName" layoutX="14.0" layoutY="20.0" promptText="Movie Name" />
+      <TextField fx:id="txtFName" layoutX="14.0" layoutY="60.0" promptText="Filepath" />
+      <Button layoutX="174.0" layoutY="60.0" mnemonicParsing="false" onAction="#ChooseFile" prefHeight="25.0" prefWidth="65.0" text="Choose.." />
+      <Button layoutX="89.0" layoutY="105.0" mnemonicParsing="false" onAction="#CreateNewMovie" text="AddEdit" />
+      <Button layoutX="265.0" layoutY="105.0" mnemonicParsing="false" onAction="#SelectCategory" text="Next" />
+   </children>
+</AnchorPane>

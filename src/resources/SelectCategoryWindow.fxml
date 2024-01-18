@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="351.0" prefWidth="502.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.Controller.SelectCategoryWindow">
+   <children>
+      <Text layoutX="47.0" layoutY="43.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Categories available" />
+      <Text layoutX="344.0" layoutY="43.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Categories Choosen" />
+      <Button layoutX="28.0" layoutY="313.0" mnemonicParsing="false" onAction="#CreateNewCategory" prefHeight="25.0" prefWidth="106.0" text="New Category" />
+      <Button layoutX="411.0" layoutY="313.0" mnemonicParsing="false" onAction="#FinishNewMovie" prefHeight="25.0" prefWidth="77.0" text="Finish" />
+      <TextField fx:id="txtFNewcategory" layoutX="36.0" layoutY="275.0" promptText="New Category" />
+      <TableView layoutX="334.0" layoutY="54.0" prefHeight="243.0" prefWidth="155.0">
+        <columns>
+          <TableColumn fx:id="colCategoryChossen" prefWidth="154.0" text="Category" />
+        </columns>
+      </TableView>
+      <TableView layoutX="35.0" layoutY="54.0" prefHeight="213.0" prefWidth="149.0">
+        <columns>
+          <TableColumn fx:id="colCategoryAvailable" prefWidth="148.0" text="Category" />
+        </columns>
+      </TableView>
+      <Button layoutX="234.0" layoutY="136.0" mnemonicParsing="false" onAction="#AddCategoryToMovie" text="-&gt;" />
+      <Button layoutX="234.0" layoutY="163.0" mnemonicParsing="false" onAction="#DeleteCategoryToMovie" text="&lt;-" />
+   </children>
+</AnchorPane>
