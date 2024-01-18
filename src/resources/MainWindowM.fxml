@@ -1,14 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="264.0" prefWidth="411.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.Controller.MainWindowMController">
+<AnchorPane prefHeight="425.0" prefWidth="597.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.Controller.MainWindowMController">
    <children>
       <Button layoutX="14.0" layoutY="198.0" mnemonicParsing="false" onMouseClicked="#CreateNewMovie" text="Add Movie" />
-      <Text layoutX="157.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="SoloMovie" />
-      <ListView layoutX="185.0" layoutY="42.0" prefHeight="200.0" prefWidth="200.0" />
+      <Text layoutX="157.0" layoutY="18.0" strokeType="OUTSIDE" strokeWidth="0.0" text="SoloMovie" />
+      <TableView fx:id="tblMovie" layoutX="157.0" layoutY="26.0" prefHeight="369.0" prefWidth="421.0">
+        <columns>
+            <TableColumn fx:id="clmMid" prefWidth="75.0" text="Id" />
+          <TableColumn fx:id="clmName" prefWidth="75.0" text="Name" />
+          <TableColumn fx:id="clmRating" prefWidth="75.0" text="Rating" />
+            <TableColumn fx:id="clmLastV" prefWidth="75.0" text="Lastviewed" />
+            <TableColumn fx:id="clmCategoryLast" prefWidth="75.0" text="Category" />
+        </columns>
+      </TableView>
    </children>
 </AnchorPane>

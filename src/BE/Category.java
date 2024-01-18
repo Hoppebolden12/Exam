@@ -20,6 +20,15 @@ public class Category {
 
         return category;
     }
+    public void setCategory() {
+
+        this.category = category;
+    }
+
+    public void setCid() {
+
+        this.Cid = Cid;
+    }
 
     public String toString() {
 

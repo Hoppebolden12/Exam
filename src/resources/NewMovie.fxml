@@ -9,7 +9,7 @@
       <TextField fx:id="txtFMovieName" layoutX="14.0" layoutY="20.0" promptText="Movie Name" />
       <TextField fx:id="txtFName" layoutX="14.0" layoutY="60.0" promptText="Filepath" />
       <Button layoutX="174.0" layoutY="60.0" mnemonicParsing="false" onAction="#ChooseFile" prefHeight="25.0" prefWidth="65.0" text="Choose.." />
-      <Button layoutX="89.0" layoutY="105.0" mnemonicParsing="false" onAction="#CreateNewMovie" text="AddEdit" />
+      <Button layoutX="89.0" layoutY="105.0" mnemonicParsing="false" onAction="#CreateNewMovie" text="Add and next" />
       <Button layoutX="265.0" layoutY="105.0" mnemonicParsing="false" onAction="#SelectCategory" text="Next" />
    </children>
 </AnchorPane>

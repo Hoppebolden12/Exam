@@ -1,4 +1,5 @@
 package BE;
+import java.time.LocalDate;
 
 public class Movie {
 
@@ -8,12 +9,12 @@ public class Movie {
 
     private int rating;
 
-    private int lastview;
+    private LocalDate lastview;
 
     private String filePath;
 
 
-    public Movie(int id, String name, int rating, int lastview, String fileLink) {
+    public Movie(int id, String name, int rating, LocalDate lastview, String fileLink) {
         this.Mid = id;
         this.name = name;
         this.rating = rating;
@@ -33,12 +34,12 @@ public class Movie {
     }
 
 
-    public int getrating() {
+    public int getRating() {
 
         return rating;
     }
 
-    public int getlastview() {
+    public LocalDate getLastview() {
 
         return lastview;
     }
@@ -50,23 +51,25 @@ public class Movie {
 
 
 
-    public void setName() {
+    public void setName(String name) {
 
         this.name = name;
     }
 
-    public void setRating() {
+    public void setRating(int rating) {
 
         this.rating = rating;
+
     }
 
-    public void setLastview() {
+    public void setLastview(LocalDate lastview) {
 
         this.lastview = lastview;
     }
 
-    public void setFilePath() {
-        this.filePath = filePath;
+    public void setFilePath(String filepath) {
+
+        this.filePath = filepath;
     }
 
     @Override
