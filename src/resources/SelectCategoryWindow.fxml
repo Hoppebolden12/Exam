@@ -10,13 +10,13 @@
 <AnchorPane prefHeight="351.0" prefWidth="502.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.Controller.SelectCategoryWindow">
    <children>
       <Text layoutX="47.0" layoutY="43.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Categories available" />
-      <Text layoutX="344.0" layoutY="43.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Categories Choosen" />
+      <Text layoutX="344.0" layoutY="43.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Categories Chosen" />
       <Button layoutX="28.0" layoutY="313.0" mnemonicParsing="false" onAction="#CreateNewCategory" prefHeight="25.0" prefWidth="106.0" text="New Category" />
       <Button layoutX="411.0" layoutY="313.0" mnemonicParsing="false" onAction="#FinishNewMovie" prefHeight="25.0" prefWidth="77.0" text="Finish" />
       <TextField fx:id="txtFNewcategory" layoutX="36.0" layoutY="275.0" promptText="New Category" />
       <TableView layoutX="334.0" layoutY="54.0" prefHeight="243.0" prefWidth="155.0">
         <columns>
-          <TableColumn fx:id="colCategoryChossen" prefWidth="154.0" text="Category" />
+          <TableColumn fx:id="colCategoryChosen" prefWidth="154.0" text="Category" />
         </columns>
       </TableView>
       <TableView fx:id="tblVAvailable" layoutX="35.0" layoutY="54.0" prefHeight="213.0" prefWidth="149.0">

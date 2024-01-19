@@ -1,5 +1,6 @@
 package DAL.DB;
 
+import BE.Category;
 import BE.Movie;
 import DAL.IMovieDA;
 
@@ -7,6 +8,7 @@ import java.io.IOException;
 import java.sql.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class MovieDB implements IMovieDA {
@@ -15,14 +17,12 @@ public class MovieDB implements IMovieDA {
     public MovieDB() throws IOException {
         databaseConnector = new MyDatabaseConnector();
     }
-
-
-    @Override
     public List<Movie> getAllMovies() throws Exception {
         ArrayList<Movie> allMovies = new ArrayList<>();
 
         try (Connection conn = databaseConnector.getConnection();
-             Statement stmt = conn.createStatement()) {
+             Statement stmt = conn.createStatement())
+        {
             String sql = "SELECT * FROM SMovie.MovieI";
             ResultSet rs = stmt.executeQuery(sql);
 
@@ -30,33 +30,34 @@ public class MovieDB implements IMovieDA {
             while (rs.next()) {
 
                 // Map DB row to Song object
-                int id = rs.getInt("Movie_id");
+                int id = rs.getInt("id");
                 String name = rs.getString("title");
                 int rating = rs.getInt("rating");
-                LocalDate lastview = rs.getDate("lastview").toLocalDate();
+                Date lastview = rs.getDate("lastview");
                 String filePath = rs.getString("filePath");
 
-                Movie movie = new Movie(id, name, rating, lastview, filePath);
+                Movie movie = new Movie(id, name, rating, (java.sql.Date) lastview, filePath);
                 allMovies.add(movie);
             }
             return allMovies;
-        } catch (SQLException ex) {
+        }
+        catch (SQLException ex){
             ex.printStackTrace();
             throw new Exception("Could not get songs from database", ex);
         }
     }
-
-    @Override
     public Movie createMovie(Movie movie) throws Exception {
-        String sql = "INSERT INTO SMovie.MovieI (title, rating, lastview, filePath) VALUES (?,?,?,?);";
+
+        String sql = "INSERT INTO SMovie.MovieI (name, rating, lastview, filePath) VALUES (?,?,?,?);";
 
         try (Connection conn = databaseConnector.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
-            // Bind our parameters
-            stmt.setString(1, movie.getName());
+             PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS))
+        {
+            //bind our parameters
+            stmt.setString(1,movie.getName());
             stmt.setInt(2, movie.getRating());
-            stmt.setDate(3, java.sql.Date.valueOf(movie.getLastview()));
-            stmt.setString(4, movie.getFilePath());
+            stmt.setDate(3,movie.getLastview());
+            stmt.setString(4,movie.getFilePath());
 
             // Run the specified SQL Statement
             stmt.executeUpdate();
@@ -69,56 +70,103 @@ public class MovieDB implements IMovieDA {
                 id = rs.getInt(1);
             }
 
-            // Set the lastview of the created movie to the current date
-            LocalDate currentDate = LocalDate.now();
-            movie = new Movie(id, movie.getName(), movie.getRating(), currentDate, movie.getFilePath());
+            // Create song object and send up the layers
+            Movie createdMovie = new Movie(id, movie.getName(), movie.getRating(), movie.getLastview(), movie.getFilePath());
 
-            return movie;
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-            throw new Exception("Could not add Movie", ex);
+            return createdMovie;
         }
+        catch (SQLException ex) {
+            ex.printStackTrace();
+            throw new Exception("Could not add song", ex);
+        }
+    }
+
+    @Override
+    public void addCategoryToMovie(Movie movie, Category category) throws Exception {
+        String sql = "DELETE FROM SMovie.MovieCategory WHERE id = ?;";
+
+        try (Connection conn = databaseConnector.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql))
+        {
+            // Bind parameters
+            stmt.setInt(1, movie.getId());
+
+            stmt.executeUpdate();
+            // Run the specified SQL statement
+        }
+        catch (SQLException ex)
+        {
+            ex.printStackTrace();
+            throw new Exception("Could not delete song", ex);
+        }
+
+
     }
 
     @Override
     public void updateMovie(Movie movie) throws Exception {
-        String sql = "UPDATE SMovie.MovieI SET rating = ? WHERE Movie_id = ?;";
-
-        try (Connection conn = databaseConnector.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
-            // Bind parameters
-            stmt.setInt(1, movie.getRating());
-            stmt.setInt(2, movie.getId());
-
-            // Run the specified SQL statement
-            stmt.executeUpdate();
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-            throw new Exception("Could not update Movie rating", ex);
-        }
+        throw new UnsupportedOperationException();
 
     }
 
     @Override
-        public void deleteMovie (Movie movie) throws Exception {
-        String sql = "DELETE FROM SMovie.MovieI WHERE Movie_id = ?;";
+    public void deleteMovie(Movie movie) throws Exception {
+        String sql = "DELETE FROM SMovie.MovieI WHERE id = ?;";
 
         try (Connection conn = databaseConnector.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
-            // Bind parameter
+             PreparedStatement stmt = conn.prepareStatement(sql))
+        {
+            // Bind parameters
             stmt.setInt(1, movie.getId());
 
-            // Run the specified SQL statement
             stmt.executeUpdate();
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-            throw new Exception("Could not delete Movie", ex);
+            // Run the specified SQL statement
         }
+        catch (SQLException ex)
+        {
+            ex.printStackTrace();
+            throw new Exception("Could not delete song", ex);
         }
 
-    @Override
-    public Movie deleteCategoryFromMovie(Movie movie) throws Exception {
-        return null;
     }
 
+    @Override
+    public List<Movie> getAllCategoriesInMovies(int categoryId) throws Exception {
+        ArrayList<Movie> allCategoriesInMovies = new ArrayList<>();
+
+        String sql = "SELECT s.*, sip.Category_id\n" +
+                "FROM YTMusic.Songs s\n" +
+                "INNER JOIN SMovie.MovieCategory sip ON s.id = sip.id\n" +
+                "WHERE sip.Category_id = (?);";
+
+        try (Connection conn = databaseConnector.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql))
+        {
+
+
+            stmt.setInt(1, categoryId);
+
+            ResultSet rs = stmt.executeQuery();
+
+            // Loop through rows from the database result set
+            while (rs.next()) {
+
+                // Map DB row to Song object
+                int id = rs.getInt("id");
+                String name = rs.getString("name");
+                int rating = rs.getInt("rating");
+                Date lastview = rs.getDate("lastview");
+                String filePath = rs.getString("filePath");
+
+                // Create Song object
+                Movie movie = new Movie(id, name, rating, (java.sql.Date) lastview, filePath);
+                allCategoriesInMovies.add(movie);
+            }
+            return allCategoriesInMovies;
+        }
+        catch (SQLException ex){
+            ex.printStackTrace();
+            throw new RuntimeException("Could not get songs from database", ex);
+        }
+    }
 }

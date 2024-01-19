@@ -20,9 +20,13 @@ public class MovieModel {
         moviesToBeViewed.addAll(movieManager.getAllMovies());
     }
 
-    public void createMovie(Movie newMovie) throws Exception {
+    public Movie createMovie(Movie newMovie) throws Exception {
         Movie m = movieManager.createMovie(newMovie);
         moviesToBeViewed.add(m);
+
+        // Optionally, you can also add the movie to the database here
+
+        return m;  // Return the created movie
     }
 
 

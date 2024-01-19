@@ -1,5 +1,7 @@
 package BE;
-import java.time.LocalDate;
+
+
+import java.sql.Date;
 
 public class Movie {
 
@@ -9,12 +11,12 @@ public class Movie {
 
     private int rating;
 
-    private LocalDate lastview;
+    private Date lastview;
 
     private String filePath;
 
 
-    public Movie(int id, String name, int rating, LocalDate lastview, String fileLink) {
+    public Movie(int id, String name, int rating, Date lastview, String fileLink) {
         this.Mid = id;
         this.name = name;
         this.rating = rating;
@@ -39,7 +41,7 @@ public class Movie {
         return rating;
     }
 
-    public LocalDate getLastview() {
+    public java.sql.Date getLastview() {
 
         return lastview;
     }
@@ -62,7 +64,7 @@ public class Movie {
 
     }
 
-    public void setLastview(LocalDate lastview) {
+    public void setLastview(Date lastview) {
 
         this.lastview = lastview;
     }

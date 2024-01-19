@@ -2,6 +2,8 @@ package Bll;
 
 import java.io.IOException;
 import java.util.List;
+
+import BE.Category;
 import BE.Movie;
 
 import Bll.util.MovieSearcher;
@@ -40,8 +42,6 @@ import java.util.List;
         public void deleteMovie(Movie movie) throws Exception {
             MovieDAO.deleteMovie(movie);
         }
-
-
 
     }
 

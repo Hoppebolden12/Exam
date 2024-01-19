@@ -16,7 +16,7 @@ public class CategoryModel {
         categoriesToBeViewed.addAll(categoryManager.getAllCategories());
     }
 
-    public void createNewPlaylist(Category newCategory) throws Exception {
+    public void createNewCategory(Category newCategory) throws Exception {
         Category c = categoryManager.createNewCategory(newCategory);
         categoriesToBeViewed.add(c);
     }
@@ -27,9 +27,9 @@ public class CategoryModel {
     }
 
 
-    public void deletePlaylist(Playlist playlist) throws Exception {
-        playlistManager.deletePlaylist(playlist);
-        playlistsToBeViewed.remove(playlist);
+    public void deleteCategory(Category category) throws Exception {
+        categoryManager.deleteCategory(category);
+        categoriesToBeViewed.remove(category);
     }
 
 }

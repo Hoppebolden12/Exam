@@ -1,6 +1,7 @@
 package DAL.DB;
 
 import BE.Category;
+import BE.Movie;
 import DAL.ICategoryDA;
 
 import java.io.IOException;
@@ -20,7 +21,7 @@ public class CategoryDB implements ICategoryDA {
         try (Connection conn = databaseConnector.getConnection();
              Statement stmt = conn.createStatement())
         {
-            String sql = "SELECT * FROM SoloMovie.Catecory";
+            String sql = "SELECT * FROM SMovie.Category";
             ResultSet rs = stmt.executeQuery(sql);
 
             // Loop through rows from the database result set
@@ -38,13 +39,40 @@ public class CategoryDB implements ICategoryDA {
         }
         catch (SQLException ex){
             ex.printStackTrace();
-            throw new Exception("Could not get songs from database", ex);
+            throw new Exception("Could not get Categories from database", ex);
         }
     }
 
     @Override
     public Category createCategory(Category category) throws Exception {
-        return null;
+        String sql = "INSERT INTO SMovie.Category (name) VALUES (?);";
+
+        try (Connection conn = databaseConnector.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+            //bind our parameters
+
+            stmt.setString(1, category.getCategory());
+
+
+            // Run the specified SQL Statement
+            stmt.executeUpdate();
+
+            // Get the generated ID from the DB
+            ResultSet rs = stmt.getGeneratedKeys();
+            int id = 0;
+
+            if (rs.next()) {
+                id = rs.getInt(1);
+            }
+
+            // Create playlist object and send up the layers
+            Category createdPLaylist = new Category(id, category.getCategory());
+
+            return createdPLaylist;
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            throw new Exception("Could not add playlist", ex);
+        }
     }
 
     @Override
@@ -54,7 +82,7 @@ public class CategoryDB implements ICategoryDA {
 
     @Override
     public void deleteCategory(Category category) throws Exception {
-        String sql = "DELETE FROM YTMusic.Playlists WHERE category_id = ?;";
+        String sql = "DELETE FROM SMovie.Category WHERE Category_id = ?;";
 
         try (Connection conn = databaseConnector.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -68,5 +96,10 @@ public class CategoryDB implements ICategoryDA {
             //ex.printStackTrace();
             //throw new Exception("Could not delete playlist", ex);
         }
+    }
+
+    @Override
+    public Movie deleteCategoryFromMovie(Movie movie) throws Exception {
+        return null;
     }
 }

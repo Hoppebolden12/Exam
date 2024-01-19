@@ -5,7 +5,7 @@ public class Category {
     private String category;
     private int Cid;
 
-    public void category (int Cid, String category) {
+    public Category (int Cid, String category) {
 
         this.category = category;
         this.Cid = Cid;

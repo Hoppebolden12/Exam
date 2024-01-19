@@ -14,7 +14,7 @@ import java.util.Properties;
 
 public class MyDatabaseConnector {
 
-    private static final String PROP_FILE = "config/config.settings";
+    private static final String PROP_FILE = "src/config/config.settings";
     private SQLServerDataSource dataSource;
 
     public MyDatabaseConnector() throws IOException {
@@ -28,7 +28,7 @@ public class MyDatabaseConnector {
 
         // Set the database connection properties using values from the configuration file
         dataSource.setServerName("10.176.111.34");
-        dataSource.setDatabaseName("Solomovie2023");
+        dataSource.setDatabaseName("SoloMovie2023");
         dataSource.setUser("CSe2023a_e_10");
         dataSource.setPassword("CSe2023aE10#23");
         dataSource.setPortNumber(1433);
